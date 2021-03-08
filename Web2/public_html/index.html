@@ -10,17 +10,31 @@ and open the template in the editor.
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+        <link rel="stylesheet" type="text/css" href="index.css" media="screen" />
+        <link  rel="stylesheet" type="text/css" href="css/all.min.css"/>
     </head>
     <body>
-        <h1>Buscador de Musica</h1>
-        <input type="search" value="" id="query" placeholder="Digite o nome da musica que deseja buscar"/><button type="button"></button>
-        <table>
-            <tr>
-                <th>Foto</th>
-                <th>Banda/Artista</th>
-                <th>Nome da Musica</th>
-            </tr>
-        </table>
+        <div id="pagina">
+            <div>
+                <h1>Buscador de Musica</h1>
+                <input type="search" value="" id="query" placeholder="Digite o nome da musica que deseja buscar"/><button type="button" class="w3-round"><i class="fas fa-search"></i></button>
+            </div>
+            <div id="conteudo">
+                <table class="w3-table-all">
+                    <tr>
+                        <th class="w3-center">Foto</th>
+                        <th class="w3-center">Banda/Artista</th>
+                        <th class="w3-center">Nome da Musica</th>
+                    </tr>
+                </table>
+            </div>
+            <div id="rodape">
+                <a href="https://www.vagalume.com.br/">
+                    <img src="imagens/vagalume.png">
+                </a>
+            </div>
+        </div>
         <script>
             let busca = document.querySelector('button');
             var tabela = document.querySelector('table');
@@ -38,9 +52,14 @@ and open the template in the editor.
                        td_banda = document.createElement('td'),
                        td_musica = document.createElement('td');
                        img.src = data.images[0].url;
+                       img.classList.add("w3-round");
+                       img.classList.add("img-table");
                        td_img.appendChild(img);
                        td_banda.innerHTML = docs[i].band;
                        td_musica.innerHTML = docs[i].title;
+                       td_img.classList.add("w3-center");
+                       td_banda.classList.add("w3-center");
+                       td_musica.classList.add("w3-center");
                        tr.appendChild(td_img);
                        tr.appendChild(td_banda);
                        tr.appendChild(td_musica);
