@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Web2</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    </head>
+    <body>
+        <h1>Buscador de Musica</h1>
+        <input type="search" value="" id="query" placeholder="Digite o nome da musica que deseja buscar"/><button type="button"></button>
+        <table>
+            <tr>
+                <th>Foto</th>
+                <th>Banda/Artista</th>
+                <th>Nome da Musica</th>
+            </tr>
+        </table>
+        <script>
+            let busca = document.querySelector('button');
+            var tabela = document.querySelector('table');
+            busca.addEventListener('click', async () => {
+               let musica = document.getElementById("query").value;
+               let json = await jQuery.getJSON("https://api.vagalume.com.br/search.excerpt?q=" + musica + "&limit=5");
+                   var docs = json.response.docs;
+                   for(var i = 0; i <= json.response.numFound && i < 5; i++){
+                       let banda = await jQuery.getJSON("https://api.vagalume.com.br/search.art?q=" + docs[i].band +"&limit=1");
+                       let bandaId = banda.response.docs[0].id.replace(/^./, "");
+                       let data = await jQuery.getJSON("https://api.vagalume.com.br/image.php" + "?bandID=" + bandaId + "&limit=1" + "&apikey={key}")
+                       var tr = document.createElement('tr'),
+                       td_img = document.createElement('td'),
+                       img = document.createElement('img'),
+                       td_banda = document.createElement('td'),
+                       td_musica = document.createElement('td');
+                       img.src = data.images[0].url;
+                       td_img.appendChild(img);
+                       td_banda.innerHTML = docs[i].band;
+                       td_musica.innerHTML = docs[i].title;
+                       tr.appendChild(td_img);
+                       tr.appendChild(td_banda);
+                       tr.appendChild(td_musica);
+                       tabela.appendChild(tr);
+                   }
+               }); 
+        </script>
+    </body>
+</html>
