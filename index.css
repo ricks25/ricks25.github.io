@@ -29,6 +29,9 @@ html, body{
 #conteudo{
     padding-bottom: 55px;
 }
-h1{
+h1, h2{
     color: #ffffff;
+}
+.invisivel{
+    display: none;
 }
