@@ -18,7 +18,7 @@ and open the template in the editor.
         <div id="pagina">
             <div>
                 <h1>Buscador de Musica</h1>
-                <input type="search" value="" id="query" placeholder="Digite o nome da musica que deseja buscar"/><button type="button" class="w3-round"><i class="fas fa-search"></i></button>
+                <input type="search" value="" id="query" placeholder="Digite o nome da musica"/><button type="button" class="w3-round"><i class="fas fa-search"></i></button>
             </div>
             <div id="conteudo">
                 <table class="w3-table-all">
@@ -39,6 +39,13 @@ and open the template in the editor.
             let busca = document.querySelector('button');
             var tabela = document.querySelector('table');
             busca.addEventListener('click', async () => {
+                var x = document.getElementsByTagName('tr').length;
+                if(x != 1){
+                    for(var j = 0; j < x - 1; j++){
+                       tabela.deleteRow(-1);
+                    }
+                }
+                
                let musica = document.getElementById("query").value;
                let json = await jQuery.getJSON("https://api.vagalume.com.br/search.excerpt?q=" + musica + "&limit=5");
                    var docs = json.response.docs;
